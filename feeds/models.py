@@ -1,5 +1,11 @@
 from django.db import models
 
+class HashTag(models.Model):
+    name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
+
 # Create your models here.
 class Article(models.Model):
     DEVELOPMENT = "dv"
@@ -17,19 +23,25 @@ class Article(models.Model):
         default = DEVELOPMENT,
     )
 
+    hashtag = models.ManyToManyField(HashTag)
+
+
     def __str__(self):
         return self.title
 
 class Comment(models.Model):
-    article = models.ForeignKey(Article, on_delete = models.CASCADE)
+    article = models.ForeignKey(
+        Article,
+        related_name = "article_comments",
+        on_delete = models.CASCADE
+    )
     username = models.CharField(max_length = 50)
     content = models.CharField(max_length = 200)
 
     def __str__(self):
         return "{} 에 댓글 :{}".format(self.article.title, self.content)
 
-class HashTag(models.Model):
-    name = models.CharField(max_length=50)
 
-    def __str__(self):
-        return self.name
+# class ArticleHashTag(models.Model):
+#     article = models.ForeignKey(Article)
+#     hashtag = models.ForeignKey(HashTag)
