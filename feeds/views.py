@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
-from .models import Article, Comment, HashTag
+from .models import Article, Comment, HashTag, Title
 
 # Create your views here.
 
@@ -10,7 +10,7 @@ def index(request):
     category = request.GET.get("category")
     hashtag = request.GET.get("hashtag")
 
-
+    title_list = Title.objects.all()
     hashtag_list = HashTag.objects.all()
     if not category and not hashtag:
         article_list = Article.objects.all()
@@ -37,6 +37,7 @@ def index(request):
         ])
 
     ctx = {
+        "title_list" : title_list,
         "article_list" : article_list,
         "hashtag_list" : hashtag_list,
         "category_list" : category_list
@@ -63,12 +64,13 @@ def detail(request, article_id):
         # print(username)
         # print(content)
         Comment.objects.create(
-            article=artice,
+            article=article,
             username=username,
-            content=content
+            content=content,
+            approved_comment=False,
         )
 
-        return HttpResponseRedirect("")
+        return HttpResponseRedirect("/{}/".format(article_id))
 
     return render(request, "detail.html", ctx)
 

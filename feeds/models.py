@@ -6,6 +6,12 @@ class HashTag(models.Model):
     def __str__(self):
         return self.name
 
+class Title(models.Model):
+    subtitle = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.subtitle
+
 # Create your models here.
 class Article(models.Model):
     DEVELOPMENT = "dv"
@@ -37,7 +43,7 @@ class Comment(models.Model):
     )
     username = models.CharField(max_length = 50)
     content = models.CharField(max_length = 200)
-
+    approved_comment = models.BooleanField(default=False)
     def __str__(self):
         return "{} 에 댓글 :{}".format(self.article.title, self.content)
 

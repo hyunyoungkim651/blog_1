@@ -4,6 +4,9 @@
 <div class="container">
   <div class="blog-header">
     <h1 class ="blog-title">Imagineer Blog</h1>
+    {% for title in title_list %}
+      <h2 class="blog-post-title"> {{ title.subtitle}} </h2>
+    {% endfor %}
     <p class="lead blog-description">The first blog created by Imagineer</p>
   </div>
   <div class ="row">

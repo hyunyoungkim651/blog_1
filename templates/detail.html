@@ -10,18 +10,28 @@
       <div class="blog-post">
         <p>{{ article.content }}</p>
       </div>
-      <div>
+      <div class ="background-color">
         {% for comment in article.article_comments.all %}
-          {{ comment.username }} : {{ comment.content }}
+          {% if comment.approved_comment is True %}
+            <div><h3 class="text-color" style="display:inline">{{ comment.username }}</h3> : {{ comment.content }}</div>
+          {% endif %}
         {% endfor %}
       </div>
-      <div>
-        <form method="post" action="">
+      <div class="reply-form">
+        <form class="form-inline" method="post" action="">
           <!-- 보안 처리 -->
           {% csrf_token %}
-          <input name="username"/>
-          <input name="content"/>
-          <button type="submit">댓글 달기</button>
+          <div>
+            <div class="form-group">
+              <input placeholder="아이디" class="form-control text-color" name="username"/>
+            </div>
+            <div class="form-group">
+              <input placeholder="내용" class="form-control" name="content"/>
+            </div>
+            <div class="form-group">
+              <button class="btn btn-default" type="submit">댓글 달기</button>
+            </div>
+          </div>
         </form>
       </div>
     </div>

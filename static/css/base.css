@@ -33,6 +33,7 @@
     font-size: 40px;
 }
 
+
 .sidebar-module {
     padding: 15px;
     margin: 0 -15px 15px;
@@ -45,4 +46,12 @@
 
 .reply-form {
   margin-top: 30px;
+}
+
+.text-color {
+  color : blue;
+}
+
+.background-color {
+  background-color: green;
 }
